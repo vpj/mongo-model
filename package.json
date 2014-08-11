@@ -1,6 +1,6 @@
 {
-  "name": "mongo-model",
-  "version": "0.0.1",
+  "name": "mongo-model-vpj",
+  "version": "0.0.2",
   "description": "Model based database for mongodb",
   "main": "index.js",
   "scripts": {
@@ -23,7 +23,7 @@
   ],
   "dependencies": {
     "mongodb": ">=0",
-    "underscore": ">=0"
+    "bson": ">=0"
   },
   "bugs": {
     "url": "https://github.com/vpj/mongo-model/issues"

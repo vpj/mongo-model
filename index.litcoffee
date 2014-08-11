@@ -77,6 +77,10 @@
 ##Model class
 
     class Model
+     model: 'Model'
+
+     _reserved: ['model', 'id', 'get', 'set', 'save', 'toJSON']
+
      constructor: ->
       @_init.apply @, arguments
 
@@ -105,20 +109,27 @@ the problem of single inheritence.
       for k, v of obj when not @::[k]?
        @::[k] = v
 
-     model: 'Model'
-
      _defaults: {}
 
 ####Register default key value set.
 Subclasses can add to default key-values of parent classes
 
      @defaults: (defaults) ->
+      for k of defaults
+       if k.length is 0 or k[0] is '_'
+        throw new Error "Invalid data model key: #{k}"
+      for k in @::_reserved
+       if defaults[k]?
+        throw new Error "Reserved data model key: #{k}"
       old = @::_defaults
       @::_defaults = {}
       for k, v of old
        @::_defaults[k] = v
       for k, v of defaults
        @::_defaults[k] = v
+       do (k) =>
+        @::__defineGetter__ k, -> @_values[k]
+        @::__defineSetter__ k, (x) -> @_values[k] = x
       @::_defaults.id = null
       @::_defaults._id = null
       @::_defaults.model = @::model

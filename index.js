@@ -112,6 +112,10 @@
   })();
 
   Model = (function() {
+    Model.prototype.model = 'Model';
+
+    Model.prototype._reserved = ['model', 'id', 'get', 'set', 'save', 'toJSON'];
+
     function Model() {
       this._init.apply(this, arguments);
     }
@@ -151,21 +155,42 @@
       return _results;
     };
 
-    Model.prototype.model = 'Model';
-
     Model.prototype._defaults = {};
 
     Model.defaults = function(defaults) {
-      var k, old, v;
+      var k, old, v, _fn, _i, _len, _ref;
+      for (k in defaults) {
+        if (k.length === 0 || k[0] === '_') {
+          throw new Error("Invalid data model key: " + k);
+        }
+      }
+      _ref = this.prototype._reserved;
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        k = _ref[_i];
+        if (defaults[k] != null) {
+          throw new Error("Reserved data model key: " + k);
+        }
+      }
       old = this.prototype._defaults;
       this.prototype._defaults = {};
       for (k in old) {
         v = old[k];
         this.prototype._defaults[k] = v;
       }
+      _fn = (function(_this) {
+        return function(k) {
+          _this.prototype.__defineGetter__(k, function() {
+            return this._values[k];
+          });
+          return _this.prototype.__defineSetter__(k, function(x) {
+            return this._values[k] = x;
+          });
+        };
+      })(this);
       for (k in defaults) {
         v = defaults[k];
         this.prototype._defaults[k] = v;
+        _fn(k);
       }
       this.prototype._defaults.id = null;
       this.prototype._defaults._id = null;

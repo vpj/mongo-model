@@ -35,7 +35,12 @@
 
   load = function() {
     return db.load('Fruit', {}, function(err, objs) {
-      return console.log(err, objs);
+      var obj;
+      obj = objs[0];
+      console.log(obj.handle);
+      obj.handle = 'test';
+      console.log(obj.handle);
+      return console.log(err, obj);
     });
   };
 

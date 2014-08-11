@@ -23,7 +23,11 @@ Load all objects of model *Fruit*
 
     load = ->
      db.load 'Fruit', {}, (err, objs) ->
-      console.log err, objs
+      obj = objs[0]
+      console.log obj.handle
+      obj.handle = 'test'
+      console.log obj.handle
+      console.log err, obj
 
 Save an object
 
