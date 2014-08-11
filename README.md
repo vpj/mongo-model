@@ -10,7 +10,7 @@
 
 A basic database model
 
-```Coffeesctipt
+```coffee
 class Fruit extends mongodb.Model
  model: 'Fruit'
 
