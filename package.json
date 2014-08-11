@@ -1,0 +1,32 @@
+{
+  "name": "mongo-model",
+  "version": "0.0.1",
+  "description": "Model based database for mongodb",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vpj/mongo-model.git"
+  },
+  "keywords": [
+    "mongodb",
+    "database"
+  ],
+  "author": "Varuna Jayasiri",
+  "license": [
+    {
+      "type" : "MIT",
+      "url" : "https://github.com/caolan/async/raw/master/LICENSE"
+    }
+  ],
+  "dependencies": {
+    "mongodb": ">=0",
+    "underscore": ">=0"
+  },
+  "bugs": {
+    "url": "https://github.com/vpj/mongo-model/issues"
+  },
+  "homepage": "https://github.com/vpj/mongo-model"
+}
