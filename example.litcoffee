@@ -21,7 +21,17 @@ Initialize database
 
 Load all objects of model *Fruit*
 
-    db.setup ->
-     db.loadFiles 'Fruit', {}, (err, objs) ->
+    load = ->
+     db.load 'Fruit', {}, (err, objs) ->
       console.log err, objs
 
+Save an object
+
+    save = (callback) ->
+     f = new Fruit {name: 'Apple', handle: 'apple'}, db: db
+     f.save callback
+
+    db.setup ->
+     save ->
+      console.log "saved"
+      load()

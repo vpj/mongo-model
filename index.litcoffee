@@ -105,7 +105,6 @@ the problem of single inheritence.
       for k, v of obj when not @::[k]?
        @::[k] = v
 
-
      model: 'Model'
 
      _defaults: {}
@@ -130,50 +129,50 @@ to the `Database` object, which will be used when updating the object.
 new object.
 
      @initialize (values, options) ->
-      @db = options.db
-      if not @db?
+      @_db = options.db
+      if not @_db?
        throw new Error "No database for model"
 
-      @values = {}
+      @_values = {}
       values ?= {}
       for k, v of @_defaults
        if values[k]?
-        @values[k] = values[k]
+        @_values[k] = values[k]
        else
-        @values[k] = v
+        @_values[k] = v
 
       if values._id?
-       @isNew = false
+       @_isNew = false
       else
-       @isNew = true
+       @_isNew = true
 
-      if @isNew
-       @values._id = new mongo.ObjectID()
-       @values.id = @values._id.toHexString()
+      if @_isNew
+       @_values._id = new mongo.ObjectID()
+       @_values.id = @_values._id.toHexString()
 
 ####Returns key value set
 
      toJSON: ->
       values = {}
-      for k, v of @values
+      for k, v of @_values
        values[k] = v
 
       return values
 
 ####Get value of a given key
 
-     get: (key) -> @values[key]
+     get: (key) -> @_values[key]
 
 ####Set key value combination
 
      set: (obj) ->
       for k, v of obj
-       @values[k] = v if k of @_defaults
+       @_values[k] = v if k of @_defaults
 
 ###Save the object
 
      save: (callback) ->
-      @db.save this, callback
+      @_db.save this, callback
 
 
 #Exports

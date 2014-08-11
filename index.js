@@ -174,11 +174,11 @@
 
     Model.initialize(function(values, options) {
       var k, v, _ref;
-      this.db = options.db;
-      if (this.db == null) {
+      this._db = options.db;
+      if (this._db == null) {
         throw new Error("No database for model");
       }
-      this.values = {};
+      this._values = {};
       if (values == null) {
         values = {};
       }
@@ -186,26 +186,26 @@
       for (k in _ref) {
         v = _ref[k];
         if (values[k] != null) {
-          this.values[k] = values[k];
+          this._values[k] = values[k];
         } else {
-          this.values[k] = v;
+          this._values[k] = v;
         }
       }
       if (values._id != null) {
-        this.isNew = false;
+        this._isNew = false;
       } else {
-        this.isNew = true;
+        this._isNew = true;
       }
-      if (this.isNew) {
-        this.values._id = new mongo.ObjectID();
-        return this.values.id = this.values._id.toHexString();
+      if (this._isNew) {
+        this._values._id = new mongo.ObjectID();
+        return this._values.id = this._values._id.toHexString();
       }
     });
 
     Model.prototype.toJSON = function() {
       var k, v, values, _ref;
       values = {};
-      _ref = this.values;
+      _ref = this._values;
       for (k in _ref) {
         v = _ref[k];
         values[k] = v;
@@ -214,7 +214,7 @@
     };
 
     Model.prototype.get = function(key) {
-      return this.values[key];
+      return this._values[key];
     };
 
     Model.prototype.set = function(obj) {
@@ -223,7 +223,7 @@
       for (k in obj) {
         v = obj[k];
         if (k in this._defaults) {
-          _results.push(this.values[k] = v);
+          _results.push(this._values[k] = v);
         } else {
           _results.push(void 0);
         }
@@ -232,7 +232,7 @@
     };
 
     Model.prototype.save = function(callback) {
-      return this.db.save(this, callback);
+      return this._db.save(this, callback);
     };
 
     return Model;
