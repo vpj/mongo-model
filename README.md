@@ -27,25 +27,33 @@ models =
 
 Initialize database
 
-    db = new mongodb.Database 'testdata', models
+```coffee
+db = new mongodb.Database 'testdata', models
+```
 
 Load all objects of model *Fruit*
 
-    load = ->
-     db.load 'Fruit', {}, (err, objs) ->
-      obj = objs[0]
-      console.log obj.handle
-      obj.handle = 'test'
-      console.log obj.handle
-      console.log err, obj
+```coffee
+load = ->
+ db.load 'Fruit', {}, (err, objs) ->
+  obj = objs[0]
+  console.log obj.handle
+  obj.handle = 'test'
+  console.log obj.handle
+  console.log err, obj
+```
 
 Save an object
 
-    save = (callback) ->
-     f = new Fruit {name: 'Apple', handle: 'apple'}, db: db
-     f.save callback
+```coffee
+save = (callback) ->
+ f = new Fruit {name: 'Apple', handle: 'apple'}, db: db
+ f.save callback
+```
 
-    db.setup ->
-     save ->
-      console.log "saved"
-      load()
+```coffee
+db.setup ->
+ save ->
+  console.log "saved"
+  load()
+```
