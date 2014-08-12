@@ -76,6 +76,10 @@
       if (!this.ready) {
         throw new Error('Database not ready');
       }
+      if (params.id) {
+        params._id = mongo.ObjectID(params.id);
+        delete params.id;
+      }
       self = this;
       return this.collection[type].find(params, function(e1, cursor) {
         if (e1 != null) {
