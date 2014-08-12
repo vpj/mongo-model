@@ -197,6 +197,10 @@
       return this.prototype._defaults.model = this.prototype.model;
     };
 
+    Model.prototype.__defineGetter__('id', function() {
+      return this.values.id;
+    });
+
     Model.initialize(function(values, options) {
       var k, v, _ref;
       this._db = options.db;
