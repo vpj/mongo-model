@@ -134,7 +134,7 @@ Subclasses can add to default key-values of parent classes
       @::_defaults._id = null
       @::_defaults.model = @::model
 
-     @::__defineGetter__ 'id', -> @values.id
+     @::__defineGetter__ 'id', -> @_values.id
 
 Build a model with the structure of defaults. `options.db` is a reference
 to the `Database` object, which will be used when updating the object.

@@ -198,7 +198,7 @@
     };
 
     Model.prototype.__defineGetter__('id', function() {
-      return this.values.id;
+      return this._values.id;
     });
 
     Model.initialize(function(values, options) {
